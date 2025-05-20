@@ -1,4 +1,4 @@
-package com.sna.project.phonephop.PhoneShop.entity;
+package com.sna.project.phonephop.PhoneShop.model.entity;
 
 
 import jakarta.persistence.*;
