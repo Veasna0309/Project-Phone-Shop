@@ -1,6 +1,7 @@
 package com.sna.project.phonephop.PhoneShop.service.impl;
 
 import com.sna.project.phonephop.PhoneShop.Mapper.Mapper;
+import com.sna.project.phonephop.PhoneShop.exception.ResourceNotFoundException;
 import com.sna.project.phonephop.PhoneShop.model.dto.BrandDTO;
 import com.sna.project.phonephop.PhoneShop.model.entity.Brand;
 import com.sna.project.phonephop.PhoneShop.repository.BrandRepository;
@@ -17,7 +18,8 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Brand findBrandById(Integer id) {
-        return brandRepository.findById(id).orElse(null);
+        return brandRepository.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException("Brand",id));
     }
 
     @Override
@@ -34,20 +36,21 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public Brand UpdateBrandById(Integer id, BrandDTO brandDTO) {
         var brand= findBrandById(id);
-        if(brand!=null){
-            brand.setName(brandDTO.getName());
+        if(brand==null){
+            throw new ResourceNotFoundException("Brand",id);
         }
+        brand.setName(brandDTO.getName());
         return brandRepository.save(brand);
     }
 
     @Override
     public String DeleteBrandById(Integer id) {
         var brand = findBrandById(id);
-        if(brand!=null){
-            brandRepository.deleteById(id);
-            return "id: "+ id+ " was  delete Successfully";
+        if(brand==null){
+            throw new ResourceNotFoundException("Brand",id);
         }
-        return "Brand not found";
+        brandRepository.deleteById(id);
+        return "id: "+ id+ " was  delete Successfully";
 
     }
 }
