@@ -1,6 +1,7 @@
 package com.sna.project.phonephop.PhoneShop.service.impl;
 
-import com.sna.project.phonephop.PhoneShop.Mapper.Mapper;
+import com.sna.project.phonephop.PhoneShop.Mapper.BrandMapper;
+import com.sna.project.phonephop.PhoneShop.service.util.Mapper;
 import com.sna.project.phonephop.PhoneShop.exception.ResourceNotFoundException;
 import com.sna.project.phonephop.PhoneShop.model.dto.BrandDTO;
 import com.sna.project.phonephop.PhoneShop.model.entity.Brand;
@@ -24,7 +25,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Brand SaveBrand(BrandDTO brandDTO) {
-       Brand brand= Mapper.toBrand(brandDTO);
+      Brand brand= BrandMapper.INSTANCE.toBrand(brandDTO);
        return brandRepository.save(brand);
     }
 
@@ -51,6 +52,5 @@ public class BrandServiceImpl implements BrandService {
         }
         brandRepository.deleteById(id);
         return "id: "+ id+ " was  delete Successfully";
-
     }
 }

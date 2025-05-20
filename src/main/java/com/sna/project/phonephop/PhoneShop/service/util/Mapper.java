@@ -1,4 +1,4 @@
-package com.sna.project.phonephop.PhoneShop.Mapper;
+package com.sna.project.phonephop.PhoneShop.service.util;
 
 import com.sna.project.phonephop.PhoneShop.model.dto.BrandDTO;
 import com.sna.project.phonephop.PhoneShop.model.entity.Brand;
