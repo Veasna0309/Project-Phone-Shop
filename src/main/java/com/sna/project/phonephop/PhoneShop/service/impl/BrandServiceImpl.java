@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
@@ -31,7 +32,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public List<Brand> findAllBrands() {
-        return brandRepository.findAll();
+     return brandRepository.findAll();
     }
 
     @Override
@@ -43,7 +44,6 @@ public class BrandServiceImpl implements BrandService {
         brand.setName(brandDTO.getName());
         return brandRepository.save(brand);
     }
-
     @Override
     public String DeleteBrandById(Integer id) {
         var brand = findBrandById(id);
@@ -53,4 +53,10 @@ public class BrandServiceImpl implements BrandService {
         brandRepository.deleteById(id);
         return "id: "+ id+ " was  delete Successfully";
     }
+
+    @Override
+    public List<Brand> filterByName(String name) {
+        return brandRepository.findByNameContaining(name);
+    }
+
 }
