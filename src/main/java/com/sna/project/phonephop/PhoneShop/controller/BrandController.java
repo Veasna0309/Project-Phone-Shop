@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -35,19 +36,17 @@ public class BrandController {
     public Brand createBrand(@RequestBody BrandDTO brand){
         return brandService.SaveBrand(brand);
     }
-    @GetMapping("/getAll")
-    public ResponseEntity<?> getAllBrands(){
-        ApiResponse<List<BrandDTO>> response=ApiResponse.<List<BrandDTO>>builder()
-                .message("All brands found")
-                .status(HttpStatus.ACCEPTED)
-                .payload(brandService.findAllBrands().stream().map(brand -> BrandMapper.INSTANCE.toBrandDTO(brand)).collect(Collectors.toList()))
-                .timestamp(LocalDateTime.now())
-
-                .build();
-
-       return new ResponseEntity<>(response, HttpStatus.OK);
-
-    }
+//    @GetMapping("/getAll")
+//    public ResponseEntity<?> getAllBrands(){
+//        ApiResponse<List<BrandDTO>> response=ApiResponse.<List<BrandDTO>>builder()
+//                .message("All brands found")
+//                .status(HttpStatus.ACCEPTED)
+//                .payload(brandService.findAllBrands().stream().map(brand -> BrandMapper.INSTANCE.toBrandDTO(brand)).collect(Collectors.toList()))
+//                .timestamp(LocalDateTime.now())
+//                .build();
+//       return new ResponseEntity<>(response, HttpStatus.OK);
+//
+//    }
      @PostMapping("/update/{id})")
     public Brand updateBrand(@PathVariable Integer id, @RequestBody BrandDTO brand){
         return brandService.UpdateBrandById(id, brand);
@@ -66,4 +65,15 @@ public class BrandController {
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
      }
+     @GetMapping()
+     public ResponseEntity<?> findAllBrandByUsingSpec(@RequestParam Map<String,String> param){
+        ApiResponse<List<BrandDTO>> response=ApiResponse.<List<BrandDTO>>builder()
+                .message("Brands found")
+                .status(HttpStatus.ACCEPTED)
+                .payload(brandService.findAllBrand(param).stream().map(brand -> BrandMapper.INSTANCE.toBrandDTO(brand)).collect(Collectors.toList()))
+                .timestamp(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+     }
+
 }

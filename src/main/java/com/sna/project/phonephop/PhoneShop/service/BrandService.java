@@ -9,10 +9,11 @@ import java.util.Map;
 public interface BrandService {
     Brand findBrandById(Integer id);
     Brand SaveBrand(BrandDTO brandDTO);
-    List<Brand> findAllBrands();
+//    List<Brand> findAllBrands();
     Brand UpdateBrandById(Integer id, BrandDTO brandDTO);
     String DeleteBrandById(Integer id);
     List<Brand> filterByName(String name);
+    List<Brand> findAllBrand(Map<String,String> param);
 
 
 }

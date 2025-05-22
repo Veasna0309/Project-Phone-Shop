@@ -7,6 +7,8 @@ import com.sna.project.phonephop.PhoneShop.model.dto.BrandDTO;
 import com.sna.project.phonephop.PhoneShop.model.entity.Brand;
 import com.sna.project.phonephop.PhoneShop.repository.BrandRepository;
 import com.sna.project.phonephop.PhoneShop.service.BrandService;
+import com.sna.project.phonephop.PhoneShop.spec.BrandFilter;
+import com.sna.project.phonephop.PhoneShop.spec.BrandSpec;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +33,6 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public List<Brand> findAllBrands() {
-     return brandRepository.findAll();
-    }
-
-    @Override
     public Brand UpdateBrandById(Integer id, BrandDTO brandDTO) {
         var brand= findBrandById(id);
         if(brand==null){
@@ -54,9 +51,25 @@ public class BrandServiceImpl implements BrandService {
         return "id: "+ id+ " was  delete Successfully";
     }
 
+
     @Override
     public List<Brand> filterByName(String name) {
         return brandRepository.findByNameContaining(name);
+    }
+
+    @Override
+    public List<Brand> findAllBrand(Map<String, String> param) {
+
+        BrandFilter brandFilter = new BrandFilter();
+        if(param.containsKey("name")){
+            brandFilter.setName(param.get("name"));
+        }
+        if(param.containsKey("id")){
+            brandFilter.setId(Integer.parseInt(param.get("id")));
+        }
+
+        BrandSpec brandSpec=new BrandSpec(brandFilter);
+        return brandRepository.findAll(brandSpec);
     }
 
 }
