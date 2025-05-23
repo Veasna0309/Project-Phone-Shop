@@ -2,14 +2,17 @@ package com.sna.project.phonephop.PhoneShop.controller;
 
 import com.sna.project.phonephop.PhoneShop.Mapper.BrandMapper;
 import com.sna.project.phonephop.PhoneShop.model.dto.BrandDTO;
+import com.sna.project.phonephop.PhoneShop.model.dto.PageDTO;
 import com.sna.project.phonephop.PhoneShop.model.entity.Brand;
 import com.sna.project.phonephop.PhoneShop.model.response.ApiResponse;
 import com.sna.project.phonephop.PhoneShop.service.BrandService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.image.BandCombineOp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +77,14 @@ public class BrandController {
                 .timestamp(LocalDateTime.now())
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
+     }
+     @GetMapping("/pagination")
+    public ResponseEntity<?> findAllByPagination(@RequestParam Map<String,String> param){
+       Page<Brand> page= brandService.Pagination(param);
+       PageDTO pageDTO=new PageDTO(page);
+
+
+       return new ResponseEntity<>(pageDTO, HttpStatus.OK);
      }
 
 }
