@@ -8,7 +8,6 @@ import jakarta.persistence.criteria.Root;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.jpa.domain.Specification;
-
 import java.util.ArrayList;
 import java.util.List;
 

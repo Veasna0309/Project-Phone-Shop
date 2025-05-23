@@ -24,8 +24,8 @@ public class BrandServiceImpl implements BrandService {
     private final BrandRepository brandRepository;
 
     @Override
-    public Brand findBrandById(Integer id) {
-        return brandRepository.findById(id)
+    public Brand findBrandById(Long id) {
+        return (Brand) brandRepository.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException("Brand",id));
     }
 
@@ -36,7 +36,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Brand UpdateBrandById(Integer id, BrandDTO brandDTO) {
+    public Brand UpdateBrandById(Long id, BrandDTO brandDTO) {
         var brand= findBrandById(id);
         if(brand==null){
             throw new ResourceNotFoundException("Brand",id);
@@ -45,12 +45,12 @@ public class BrandServiceImpl implements BrandService {
         return brandRepository.save(brand);
     }
     @Override
-    public String DeleteBrandById(Integer id) {
+    public String DeleteBrandById(Long id) {
         var brand = findBrandById(id);
         if(brand==null){
             throw new ResourceNotFoundException("Brand",id);
         }
-        brandRepository.deleteById(id);
+        brandRepository.delete(brand);
         return "id: "+ id+ " was  delete Successfully";
     }
 
@@ -68,7 +68,7 @@ public class BrandServiceImpl implements BrandService {
             brandFilter.setName(param.get("name"));
         }
         if(param.containsKey("id")){
-            brandFilter.setId(Integer.parseInt(param.get("id")));
+            brandFilter.setId(Long.parseLong(param.get("id")));
         }
 
         BrandSpec brandSpec=new BrandSpec(brandFilter);
@@ -82,7 +82,7 @@ public class BrandServiceImpl implements BrandService {
             brandFilter.setName(param.get("name"));
         }
         if(param.containsKey("id")){
-            brandFilter.setId(Integer.parseInt(param.get("id")));
+            brandFilter.setId(Long.parseLong(param.get("id")));
         }
 
         int pageLimit=PageUtil.DEFUALT_PAGE_lIMITE;

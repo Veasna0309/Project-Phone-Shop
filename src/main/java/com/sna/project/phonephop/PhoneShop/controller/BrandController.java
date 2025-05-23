@@ -25,7 +25,7 @@ public class BrandController {
     private final BrandService brandService;
 
     @GetMapping("/search/{id}")
-    public ResponseEntity<ApiResponse<Brand>> getBrandById(@PathVariable Integer id){
+    public ResponseEntity<ApiResponse<Brand>> getBrandById(@PathVariable Long id){
         ApiResponse<Brand> response=ApiResponse.<Brand>builder()
                 .message("id :"+id+" is found")
                 .status(HttpStatus.ACCEPTED)
@@ -51,11 +51,11 @@ public class BrandController {
 //
 //    }
      @PostMapping("/update/{id})")
-    public Brand updateBrand(@PathVariable Integer id, @RequestBody BrandDTO brand){
+    public Brand updateBrand(@PathVariable Long id, @RequestBody BrandDTO brand){
         return brandService.UpdateBrandById(id, brand);
      }
      @DeleteMapping("delete/{id}")
-    public String deleteBrand(@PathVariable Integer id){
+    public String deleteBrand(@PathVariable Long id){
         return brandService.DeleteBrandById(id);
      }
      @GetMapping("/filter")
