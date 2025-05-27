@@ -83,8 +83,12 @@ public class BrandController {
        Page<Brand> page= brandService.Pagination(param);
        PageDTO pageDTO=new PageDTO(page);
 
-
        return new ResponseEntity<>(pageDTO, HttpStatus.OK);
+     }
+     @GetMapping("/getAllByNameAndId")
+    public List<Brand> findAllByNameAndId(@RequestParam Map<String,String> param){
+        return brandService.findAllBrand(param);
+
      }
 
 }

@@ -8,10 +8,17 @@ import com.sna.project.phonephop.PhoneShop.model.entity.Model;
 import com.sna.project.phonephop.PhoneShop.repository.ModelRepository;
 import com.sna.project.phonephop.PhoneShop.service.BrandService;
 import com.sna.project.phonephop.PhoneShop.service.ModelService;
+import com.sna.project.phonephop.PhoneShop.spec.ModelFilter;
+import com.sna.project.phonephop.PhoneShop.spec.ModelSpec;
+import com.sna.project.phonephop.PhoneShop.util.PageUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +40,7 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public List<Model> getAllModels() {
+
         return modelRepository.findAll();
     }
 
@@ -74,4 +82,35 @@ public class ModelServiceImpl implements ModelService {
         }
        return  modelRepository.findModelsByBrandId(brandId);
     }
+
+    @Override
+    public List<Model> findModelByIdAndName(Map<String, String> param) {
+        ModelFilter modelFilter=new ModelFilter();
+
+        if(param.containsKey("id")){
+            modelFilter.setId(Long.parseLong(param.get("id")));
+        }
+        if(param.containsKey("name")){
+            modelFilter.setName(param.get("name"));
+        }
+
+        ModelSpec modelSpec=new ModelSpec(modelFilter);
+        return modelRepository.findAll(modelSpec);
+    }
+
+    @Override
+    public Page<Model> PaginationModel(Map<String, String> param) {
+        int pageLimit = PageUtil.DEFUALT_PAGE_lIMITE;
+        if (param.containsKey(PageUtil.PAGE_LINIT)) {
+            pageLimit = Integer.parseInt(param.get(PageUtil.PAGE_LINIT));
+        }
+
+        int pageNumber = PageUtil.DEFUALT_PAGE_NUMBER;
+        if (param.containsKey(PageUtil.PAGE_NUMBER)) {
+            pageNumber = Integer.parseInt(param.get(PageUtil.PAGE_NUMBER));
+        }
+        Pageable pageable=PageUtil.getPageable(pageNumber,pageLimit);
+        return modelRepository.findAll(pageable);
+    }
+
 }

@@ -70,7 +70,6 @@ public class BrandServiceImpl implements BrandService {
         if(param.containsKey("id")){
             brandFilter.setId(Long.parseLong(param.get("id")));
         }
-
         BrandSpec brandSpec=new BrandSpec(brandFilter);
         return brandRepository.findAll(brandSpec);
     }
@@ -84,7 +83,6 @@ public class BrandServiceImpl implements BrandService {
         if(param.containsKey("id")){
             brandFilter.setId(Long.parseLong(param.get("id")));
         }
-
         int pageLimit=PageUtil.DEFUALT_PAGE_lIMITE;
         if(param.containsKey(PageUtil.PAGE_LINIT)){
             pageLimit=Integer.parseInt(param.get(PageUtil.PAGE_LINIT));
@@ -93,13 +91,10 @@ public class BrandServiceImpl implements BrandService {
         if(param.containsKey(PageUtil.PAGE_NUMBER)){
             pageNumber=Integer.parseInt(param.get(PageUtil.PAGE_NUMBER));
         }
-
-
         BrandSpec brandSpec=new BrandSpec(brandFilter);
         Pageable pageable=PageUtil.getPageable(pageNumber,pageLimit);
 
         Page<Brand> page=brandRepository.findAll(brandSpec,pageable);
-
         return page;
     }
 

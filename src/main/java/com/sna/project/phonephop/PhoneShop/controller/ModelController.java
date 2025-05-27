@@ -2,16 +2,20 @@ package com.sna.project.phonephop.PhoneShop.controller;
 
 import com.sna.project.phonephop.PhoneShop.Mapper.ModelMapper;
 import com.sna.project.phonephop.PhoneShop.model.dto.ModelDTO;
+import com.sna.project.phonephop.PhoneShop.model.dto.PageDTO;
 import com.sna.project.phonephop.PhoneShop.model.entity.Model;
 import com.sna.project.phonephop.PhoneShop.model.response.ApiResponse;
 import com.sna.project.phonephop.PhoneShop.service.ModelService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/models")
@@ -53,10 +57,10 @@ public class ModelController {
     public ResponseEntity<?> getModelById(@PathVariable Long id) {
 
         return ResponseEntity.ok(
-                ApiResponse.<Model>builder().message("Success")
+                ApiResponse.<ModelDTO>builder().message("Success")
                         .message("Success")
                         .status(HttpStatus.ACCEPTED)
-                        .payload(modelService.findModelById(id))
+                        .payload(modelMapper.toModelDTO(modelService.findModelById(id)))
                         .timestamp(LocalDateTime.now())
                         .build()
         );
@@ -94,4 +98,25 @@ public class ModelController {
                 .build();
         return new ResponseEntity(response, HttpStatus.ACCEPTED);
     }
+    @GetMapping("/findAll")
+    public ResponseEntity<?> getAllByIdAndName(@RequestParam Map<String,String> params) {
+        return ResponseEntity.ok(ApiResponse.<List<Model>>builder()
+                .message("Success")
+                .status(HttpStatus.ACCEPTED)
+                .payload(modelService.findModelByIdAndName(params))
+                .timestamp(LocalDateTime.now())
+                .build());
+    };
+    @GetMapping("/Pagination")
+    public ResponseEntity<?> getModelPagination(@RequestParam Map<String,String> param) {
+       Page<Model> page= modelService.PaginationModel(param);
+
+        return ResponseEntity.ok(ApiResponse.<PageDTO>builder()
+        .message("Success")
+                .status(HttpStatus.ACCEPTED)
+                .payload(new PageDTO(page))
+                .timestamp(LocalDateTime.now())
+                .build());
+    }
+
 }
