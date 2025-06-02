@@ -1,6 +1,6 @@
 package com.sna.project.phonephop.PhoneShop.controller;
 
-import com.sna.project.phonephop.PhoneShop.Mapper.ModelMapper;
+import com.sna.project.phonephop.PhoneShop.Mapper.ModelEntityMapper;
 import com.sna.project.phonephop.PhoneShop.model.dto.ModelDTO;
 import com.sna.project.phonephop.PhoneShop.model.dto.PageDTO;
 import com.sna.project.phonephop.PhoneShop.model.entity.Model;
@@ -21,7 +21,7 @@ import java.util.Map;
 @RequestMapping("/models")
 public class ModelController {
     private final ModelService modelService;
-    private final ModelMapper modelMapper;
+    private final ModelEntityMapper modelMapper;
 
 
     @PostMapping

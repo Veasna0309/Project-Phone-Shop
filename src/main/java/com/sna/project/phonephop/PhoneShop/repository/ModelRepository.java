@@ -11,6 +11,6 @@ import java.util.List;
 
 @Repository
 public interface ModelRepository extends JpaRepository<Model, Long>, JpaSpecificationExecutor<Model> {
-    @Query("SELECT m FROM Model m WHERE m.brand.id = :brandId")
-    List<Model> findModelsByBrandId(@Param("brandId") Long brandId);
+//    @Query("SELECT m FROM Model m WHERE m.brand.id = :brandId")
+    List<Model> findByBrandId(@Param("brandId") Long brandId);
 }

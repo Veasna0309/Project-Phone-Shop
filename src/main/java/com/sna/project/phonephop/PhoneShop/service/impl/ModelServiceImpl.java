@@ -1,6 +1,6 @@
 package com.sna.project.phonephop.PhoneShop.service.impl;
 
-import com.sna.project.phonephop.PhoneShop.Mapper.ModelMapper;
+import com.sna.project.phonephop.PhoneShop.Mapper.ModelEntityMapper;
 import com.sna.project.phonephop.PhoneShop.exception.ResourceNotFoundException;
 import com.sna.project.phonephop.PhoneShop.model.dto.ModelDTO;
 import com.sna.project.phonephop.PhoneShop.model.entity.Brand;
@@ -14,7 +14,6 @@ import com.sna.project.phonephop.PhoneShop.util.PageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +23,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ModelServiceImpl implements ModelService {
     private final ModelRepository modelRepository;
-    private final ModelMapper modelMapper;
+    private final ModelEntityMapper modelMapper;
     private final BrandService brandService;
     /*
     បើអត់ប្រើ modelMapper ទេ នោះ BrandService in interfaced MoelMapper will null
@@ -80,7 +79,7 @@ public class ModelServiceImpl implements ModelService {
         if(brand==null){
             throw new ResourceNotFoundException("Brand",brandId);
         }
-       return  modelRepository.findModelsByBrandId(brandId);
+       return  modelRepository.findByBrandId(brandId);
     }
 
     @Override

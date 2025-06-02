@@ -9,8 +9,8 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring", uses = {BrandService.class}) //ដាក់spring ដើម្បី autowire brandservice    , ដាក់BrandService.class ដើម្បreuse method findByID(Long id)
 //ហើយយើងត្រូវ autowire ModelMapper ក្នុង ModelController   បើមិនទេBrandSerice ក្នុង ModelMapper នឹងnull
-public interface ModelMapper {
-    ModelMapper INSTANCE = Mappers.getMapper(ModelMapper.class);
+public interface ModelEntityMapper {
+    ModelEntityMapper INSTANCE = Mappers.getMapper(ModelEntityMapper.class);
     @Mapping(target = "brand",source = "brandId")
     Model toModel(ModelDTO modelDTO);
     @Mapping(target = "brandId",source = "brand.id")
