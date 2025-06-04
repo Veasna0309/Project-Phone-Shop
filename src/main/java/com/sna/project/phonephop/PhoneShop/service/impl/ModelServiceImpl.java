@@ -25,6 +25,7 @@ public class ModelServiceImpl implements ModelService {
     private final ModelRepository modelRepository;
     private final ModelEntityMapper modelMapper;
     private final BrandService brandService;
+
     /*
     បើអត់ប្រើ modelMapper ទេ នោះ BrandService in interfaced MoelMapper will null
     because it don't have autowire
