@@ -1,9 +1,11 @@
 package com.sna.project.phonephop.PhoneShop.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -16,7 +18,8 @@ public class ProductImportHistory {
     private Long id;
 
     @Column(name = "date_import")
-    private LocalDateTime dateImport;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDate dateImport;
 
     @Column(name = "import_unit")
     private Integer importUnit;

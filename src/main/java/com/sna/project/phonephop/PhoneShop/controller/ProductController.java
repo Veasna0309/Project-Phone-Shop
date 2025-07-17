@@ -2,9 +2,11 @@ package com.sna.project.phonephop.PhoneShop.controller;
 
 import com.sna.project.phonephop.PhoneShop.Mapper.ProductMapper;
 import com.sna.project.phonephop.PhoneShop.model.dto.ProductDTO;
+import com.sna.project.phonephop.PhoneShop.model.dto.ProductImportDTO;
 import com.sna.project.phonephop.PhoneShop.model.entity.Product;
 import com.sna.project.phonephop.PhoneShop.model.response.ApiResponse;
 import com.sna.project.phonephop.PhoneShop.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +33,10 @@ public class ProductController {
                         .timestamp(LocalDateTime.now())
                 .build()
         );
+    }
+    @PostMapping("/importProduct")
+    ResponseEntity<?> importProduct(@RequestBody @Valid ProductImportDTO productImportDTO) {
+        productService.importProduct(productImportDTO);
+        return ResponseEntity.ok().build();
     }
 }
