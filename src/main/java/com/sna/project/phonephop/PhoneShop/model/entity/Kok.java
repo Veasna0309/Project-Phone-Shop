@@ -1,19 +1,18 @@
 package com.sna.project.phonephop.PhoneShop.model.entity;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 @Data
 @Entity
-@Table(name = "sales")
-public class Sale {
+@Table(name = "kok")
+public class Kok {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sale_id")
+    @Column(name = "color_id")
     private Long id;
 
-    @Column(name = "sold_date")
-    private LocalDate soldDate;
+    @Column(name = "color_name")
+    private String name;
 }

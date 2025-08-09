@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -56,5 +58,17 @@ public class ProductServiceImpl implements ProductService {
        //save product import history
        ProductImportHistory importHistory= productMapper.toProductImportHistory(productImportDTO,product);
        productImportHistoryRepository.save(importHistory);
+    }
+
+    @Override
+    public void setSalePrice(Long productId, BigDecimal salePrice) {
+        Product product = getById(productId);
+        product.setSalePrice(salePrice);
+        productRepository.save(product);
+    }
+
+    @Override
+    public void validateStock(Long productId, Integer numberOfUnit) {
+
     }
 }

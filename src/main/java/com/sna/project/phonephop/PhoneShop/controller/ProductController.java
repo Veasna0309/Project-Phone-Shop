@@ -1,23 +1,22 @@
 package com.sna.project.phonephop.PhoneShop.controller;
 
 import com.sna.project.phonephop.PhoneShop.Mapper.ProductMapper;
+import com.sna.project.phonephop.PhoneShop.model.dto.PriceDTO;
 import com.sna.project.phonephop.PhoneShop.model.dto.ProductDTO;
 import com.sna.project.phonephop.PhoneShop.model.dto.ProductImportDTO;
 import com.sna.project.phonephop.PhoneShop.model.entity.Product;
 import com.sna.project.phonephop.PhoneShop.model.response.ApiResponse;
 import com.sna.project.phonephop.PhoneShop.service.ProductService;
+import io.swagger.models.Response;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
-@RequestMapping("product")
+@RequestMapping("products")
 @RestController
 @RequiredArgsConstructor
 public class ProductController {
@@ -38,5 +37,11 @@ public class ProductController {
     ResponseEntity<?> importProduct(@RequestBody @Valid ProductImportDTO productImportDTO) {
         productService.importProduct(productImportDTO);
         return ResponseEntity.ok().build();
+    }
+    @PostMapping("{productId}/setSalePrice")
+    public ResponseEntity<?> setSalePrice(@PathVariable Long productId,@RequestBody PriceDTO priceDTO) {
+        productService.setSalePrice(productId,priceDTO.getPrice());
+        return ResponseEntity.ok().build();
+
     }
 }
