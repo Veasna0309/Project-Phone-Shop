@@ -12,9 +12,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @RequestMapping("products")
 @RestController
@@ -42,6 +45,10 @@ public class ProductController {
     public ResponseEntity<?> setSalePrice(@PathVariable Long productId,@RequestBody PriceDTO priceDTO) {
         productService.setSalePrice(productId,priceDTO.getPrice());
         return ResponseEntity.ok().build();
-
+    }
+    @PostMapping("uploadProduct")
+    public ResponseEntity<?> uploadProduct(@RequestParam("file")  MultipartFile file) {
+      Map<Integer,String> error=  productService.uploadProduct(file);
+       return ResponseEntity.ok(error);
     }
 }

@@ -19,7 +19,7 @@ public class ProductImportHistory {
 
     @Column(name = "date_import")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDate dateImport;
+    private LocalDateTime dateImport;
 
     @Column(name = "import_unit")
     private Integer importUnit;

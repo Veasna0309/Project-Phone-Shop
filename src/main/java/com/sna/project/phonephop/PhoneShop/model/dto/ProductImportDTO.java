@@ -20,6 +20,6 @@ public class ProductImportDTO {
     private BigDecimal importPrice;
     @NotNull(message = "import date must be not null")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDate importDate;
+    private LocalDateTime importDate;
 
 }
